@@ -60,6 +60,15 @@ function! s:Vertigo(motion, direction, mode)
 "    (if the user doesn't cancel)
 "    Returns nothing.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+  
+  " **** RELATIVE NUMBER ADDITION #1 [START] ****
+  let old_listchars=&listchars
+  let old_list=&list
+  let old_rnu=&rnu
+  set listchars=tab:..,space:.
+  set rnu
+  set list
+  " **** RELATIVE NUMBER ADDITION #1 [END] ****
 
   " If used in visual mode, Vim exited visual mode in order to get here.
   " Re-enter visual mode.
@@ -74,6 +83,16 @@ function! s:Vertigo(motion, direction, mode)
   else
     call s:PromptRelativeJump(a:motion, a:direction, a:mode)
   endif
+  
+  " **** RELATIVE NUMBER ADDITION #2 [START] ****
+  let &list=old_list
+  let &rnu=old_rnu
+  let &listchars=old_listchars
+  unlet old_list
+  unlet old_rnu
+  unlet old_listchars
+  " **** RELATIVE NUMBER ADDITION #2 [END] ****
+  
 endfunction
 
 function! s:PromptRelativeJump(motion, direction, mode)
